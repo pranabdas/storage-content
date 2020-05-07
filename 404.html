@@ -175,7 +175,12 @@
 <link rel="stylesheet" href="https://pranabdas.github.io/assets/css/academicons.min.css">
 
 
-
+<script>
+  var jekyllPages = [];
+  {% for item in site.static_files %}
+  jekyllPages.push("{{ site.url }}{{ item.path }}");
+  {% endfor %}
+</script>
 
   </body>
 
