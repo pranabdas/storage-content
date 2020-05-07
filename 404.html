@@ -4,6 +4,27 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script>
+            var jekyllPages = [];
+            {% for item in site.static_files %}
+            jekyllPages.push("{{ site.url }}{{ item.path }}");
+            {% endfor %}
+            function jekyllFixCaseSensitiveUrl() {
+                var url = window.location.toString();
+                if (url.slice(-1) === "/"){
+                    url = url.slice(0, -1);
+                }
+                var page = jekyllPages.map(function(value) {
+                        return value.toLowerCase();
+                    });
+                var i = page.indexOf(url.toLowerCase());
+                if (i !== -1) {
+                    window.location = jekyllPages[i];
+                    console.log(jekyllPages[i]);
+                }
+            }
+            window.onload = jekyllFixCaseSensitiveUrl();
+        </script>
         <meta charset="utf-8" />
         <meta name="viewport" content="width=device-width initial-scale=1" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -171,32 +192,5 @@
             rel="stylesheet"
             href="https://pranabdas.github.io/assets/css/academicons.min.css"
         />
-
-        <script>
-            var jekyllPages = [];
-            {% for item in site.static_files %}
-            jekyllPages.push("{{ site.url }}{{ item.path }}");
-            {% endfor %}
-
-            function jekyllFixCaseSensitiveUrl() {
-                var url = window.location.toString();
-
-                if (url.slice(-1) === "/"){
-                    url = url.slice(0, -1);
-                }
-
-                var page = jekyllPages.map(function(value) {
-                        return value.toLowerCase();
-                    });
-
-                var i = page.indexOf(url.toLowerCase());
-
-                if (i !== -1) {
-                    window.location = jekyllPages[i];
-                    console.log(jekyllPages[i]);
-                }
-            }
-            window.onload = jekyllFixCaseSensitiveUrl();
-        </script>
     </body>
 </html>
