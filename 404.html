@@ -179,15 +179,21 @@
             {% endfor %}
 
             function jekyllFixCaseSensitiveUrl() {
-            var url = window.location.toString();
+                var url = window.location.toString();
 
-            var page = jekyllPages.map(function(value) {
-                    return value.toLowerCase();
-                });
+                if (url.slice(-1) === "/"){
+                    url = url.slice(0, -1);
+                }
+
+                var page = jekyllPages.map(function(value) {
+                        return value.toLowerCase();
+                    });
+
                 var i = page.indexOf(url.toLowerCase());
 
                 if (i !== -1) {
                     window.location = jekyllPages[i];
+                    console.log(jekyllPages[i]);
                 }
             }
             window.onload = jekyllFixCaseSensitiveUrl();
